@@ -1,11 +1,12 @@
 package main
 
 import (
+	"fmt"
+	"github.com/aliqyan-21/hawkwing"
 	"math/rand"
 	"net/http"
 	"path/filepath"
-
-	"github.com/aliqyan-21/hawkwing"
+	"sort"
 )
 
 type CatRating struct {
@@ -23,19 +24,14 @@ func main() {
 	hawkwing.LoadTemplates("templates")
 	app.LoadStatic("/static/", "./static")
 
-	// Initialize the list of cat images from the directory
 	initCatImages("./static/cats/")
 
-	// Home route to show the two random cats for voting
 	app.AddRoute("GET", "/", showCats)
-
-	// Vote route to capture the user's vote and update the ratings
 	app.AddRoute("POST", "/vote", vote)
 
-	hawkwing.Start("localhost", "5000", app)
+	hawkwing.Start("0.0.0.0", "5000", app)
 }
 
-// initCatImages scans the given directory for image files and populates the catImages slice.
 func initCatImages(catDir string) {
 	files, err := filepath.Glob(filepath.Join(catDir, "*.jpg"))
 	if err != nil {
@@ -47,7 +43,6 @@ func initCatImages(catDir string) {
 	}
 }
 
-// randomCat picks a random cat image that is not in the `exclude` set.
 func randomCat(exclude map[string]bool) string {
 	if len(catImages) == 0 {
 		return "" // No images available
@@ -60,21 +55,31 @@ func randomCat(exclude map[string]bool) string {
 	}
 }
 
-// showCats renders the homepage with two random cats for voting
 func showCats(w http.ResponseWriter, r *http.Request) {
 	if currentCats[0] == "" && currentCats[1] == "" {
 		currentCats[0] = randomCat(nil)
 		currentCats[1] = randomCat(map[string]bool{currentCats[0]: true})
 	}
 
+	var sortedRatings []CatRating
+	for cat, rating := range catRatings {
+		sortedRatings = append(sortedRatings, CatRating{Image: cat, Votes: rating})
+	}
+
+	sort.Slice(sortedRatings, func(i, j int) bool {
+		return sortedRatings[i].Votes > sortedRatings[j].Votes
+	})
+
+	fmt.Println("Cat Ratings:", catRatings)       // Debugging line
+	fmt.Println("Sorted Ratings:", sortedRatings) // Debugging line
+
 	hawkwing.RenderHTML(w, "home.html", map[string]interface{}{
 		"Cat1":    currentCats[0],
 		"Cat2":    currentCats[1],
-		"Ratings": catRatings,
+		"Ratings": sortedRatings,
 	})
 }
 
-// vote handles the voting logic, updates the rating in memory
 func vote(w http.ResponseWriter, r *http.Request) {
 	selectedCat := r.FormValue("selectedCat")
 

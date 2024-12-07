@@ -1,45 +1,44 @@
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f9f9f9;
+  font-family: "Arial", sans-serif;
+  background-color: #1e1e2f; /* Deep dark background for a modern look */
   margin: 0;
   padding: 0;
   text-align: center;
-  color: #333;
+  color: #f0f0f0;
+  line-height: 1.6;
 }
 
-/* Heading Styles */
 h1 {
   font-size: 2.5rem;
-  margin-top: 20px;
-  color: #ff4081;
+  margin: 20px 10px;
+  color: #ff914d;
 }
 
 h2 {
   font-size: 2rem;
-  margin-top: 40px;
-  color: #444;
+  margin: 40px 10px 20px;
+  color: #ffc078;
 }
 
-/* Form Styling */
+.cat-voting-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin: 20px 10px;
+}
+
 form {
   display: flex;
   justify-content: center;
-  align-items: center;
-  gap: 40px;
-  margin: 20px 0;
 }
 
-form div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* Cat Image Styling */
 .cat-image {
-  width: 300px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 250px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 15px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.7); /* Enhanced shadow for depth */
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease;
@@ -47,47 +46,92 @@ form div {
 
 .cat-image:hover {
   transform: scale(1.1);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 20px rgba(255, 145, 77, 0.8); /* Highlight shadow on hover */
 }
 
-/* Radio Button Styling */
-input[type="radio"] {
-  margin-top: 10px;
-  transform: scale(1.5);
-  cursor: pointer;
-}
-
-/* Button Styling */
-button {
-  padding: 10px 20px;
-  font-size: 1.2rem;
-  color: #fff;
-  background-color: #ff4081;
+.cat-button {
+  background: none;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
-button:hover {
-  background-color: #e0366b;
+.leaderboard-table {
+  margin: 20px auto;
+  border-collapse: collapse;
+  width: calc(100% - 40px);
+  max-width: 800px;
+  background-color: #282844;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
-/* Leaderboard Styling */
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 20px 0;
+.leaderboard-table th,
+.leaderboard-table td {
+  padding: 15px;
+  text-align: center;
+  border-bottom: 1px solid #555;
+  color: #f0f0f0;
 }
 
-li {
-  font-size: 1.2rem;
-  background: #fff;
-  padding: 10px 15px;
-  margin: 10px auto;
-  width: 80%;
-  max-width: 400px;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  text-align: left;
+.leaderboard-table th {
+  background-color: #ff914d;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.leaderboard-table tr:nth-child(even) {
+  background-color: #3a3a5c;
+}
+
+.leaderboard-table tr:hover {
+  background-color: #47476a;
+}
+
+.small-cat-image {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+}
+
+@media (max-width: 600px) {
+  h1 {
+    font-size: 2rem;
+    margin: 15px;
+  }
+
+  h2 {
+    font-size: 1.6rem;
+    margin: 20px;
+  }
+
+  .cat-voting-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .cat-image {
+    width: 90%;
+    height: auto;
+  }
+
+  .leaderboard-table {
+    width: 100%;
+    overflow-x: auto;
+    display: block;
+    margin: 10px;
+  }
+
+  .leaderboard-table th,
+  .leaderboard-table td {
+    font-size: 0.85rem;
+    padding: 10px;
+  }
+
+  .small-cat-image {
+    width: 50px;
+    height: 50px;
+  }
 }

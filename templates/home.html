@@ -8,20 +8,23 @@
   </head>
   <body>
     <h1>Vote for the Cutest Cat!</h1>
-    <form action="/vote" method="POST">
-      <div>
-        <img src="/static/cats/{{.Cat1}}" alt="Cat 1" class="cat-image" />
-        <input type="radio" name="selectedCat" value="{{.Cat1}}" required />
-      </div>
-      <div>
-        <img src="/static/cats/{{.Cat2}}" alt="Cat 2" class="cat-image" />
-        <input type="radio" name="selectedCat" value="{{.Cat2}}" required />
-      </div>
-      <button type="submit">Vote</button>
-    </form>
+    <div class="cat-voting-container">
+      <form action="/vote" method="POST">
+        <input type="hidden" name="selectedCat" value="{{.Cat1}}" />
+        <button type="submit" class="cat-button">
+          <img src="/static/cats/{{.Cat1}}" alt="Cat 1" class="cat-image" />
+        </button>
+      </form>
+      <form action="/vote" method="POST">
+        <input type="hidden" name="selectedCat" value="{{.Cat2}}" />
+        <button type="submit" class="cat-button">
+          <img src="/static/cats/{{.Cat2}}" alt="Cat 2" class="cat-image" />
+        </button>
+      </form>
+    </div>
 
     <h2>Leaderboard:</h2>
-    <table>
+    <table class="leaderboard-table">
       <thead>
         <tr>
           <th>Cat Image</th>
@@ -29,7 +32,7 @@
         </tr>
       </thead>
       <tbody>
-        {{range .Ratings}}
+        {{if .Ratings}} {{range .Ratings}}
         <tr>
           <td>
             <img
@@ -39,6 +42,10 @@
             />
           </td>
           <td>{{.Votes}} votes</td>
+        </tr>
+        {{end}} {{else}}
+        <tr>
+          <td colspan="2">No votes yet!</td>
         </tr>
         {{end}}
       </tbody>
