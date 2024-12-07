@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Catty Cuteness Voting</title>
+    <link rel="stylesheet" href="/static/home.css" />
+  </head>
+  <body>
+    <h1>Vote for the Cutest Cat!</h1>
+    <form action="/vote" method="POST">
+      <div>
+        <img src="/static/cats/{{.Cat1}}" alt="Cat 1" class="cat-image" />
+        <input type="radio" name="selectedCat" value="{{.Cat1}}" required />
+      </div>
+      <div>
+        <img src="/static/cats/{{.Cat2}}" alt="Cat 2" class="cat-image" />
+        <input type="radio" name="selectedCat" value="{{.Cat2}}" required />
+      </div>
+      <button type="submit">Vote</button>
+    </form>
+
+    <h2>Leaderboard:</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Cat Image</th>
+          <th>Votes</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{range .Ratings}}
+        <tr>
+          <td>
+            <img
+              src="/static/cats/{{.Image}}"
+              alt="{{.Image}}"
+              class="small-cat-image"
+            />
+          </td>
+          <td>{{.Votes}} votes</td>
+        </tr>
+        {{end}}
+      </tbody>
+    </table>
+  </body>
+</html>
