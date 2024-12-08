@@ -7,6 +7,18 @@
     <link rel="stylesheet" href="/static/home.css" />
   </head>
   <body>
+    <header class="header">
+      <p>
+        <a href="https://github.com/aliqyan-21/cattycuteness" class="link"
+          >Web app</a
+        >
+        made with ❤️ using the
+        <a href="https://github.com/aliqyan-21/hawkwing" class="link"
+          >Hawkwing framework</a
+        >
+        by Aliqyan.
+      </p>
+    </header>
     <h1>Vote for the Cutest Cat!</h1>
     <div class="cat-voting-container">
       <form action="/vote" method="POST">
@@ -52,9 +64,5 @@
         {{end}}
       </tbody>
     </table>
-
-    <footer class="footer">
-      <p>Web app made with ❤️ using the Hawkwing framework by Aliqyan.</p>
-    </footer>
   </body>
 </html>
