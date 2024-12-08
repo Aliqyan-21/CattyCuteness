@@ -1,22 +1,25 @@
 package main
 
 import (
-	"fmt"
-	"github.com/aliqyan-21/hawkwing"
+	"math"
 	"math/rand"
 	"net/http"
 	"path/filepath"
 	"sort"
+
+	"github.com/aliqyan-21/hawkwing"
 )
 
 type CatRating struct {
-	Image string
-	Votes int
+	Image  string
+	Rating int
 }
 
 var catRatings = make(map[string]int)
 var catImages []string
 var currentCats = [2]string{}
+
+const K = 30 // K factor for ELO ratings
 
 func main() {
 	app := hawkwing.Init()
@@ -29,7 +32,7 @@ func main() {
 	app.AddRoute("GET", "/", showCats)
 	app.AddRoute("POST", "/vote", vote)
 
-	hawkwing.Start("0.0.0.0", "5000", app)
+	hawkwing.Start("localhost", "5000", app)
 }
 
 func initCatImages(catDir string) {
@@ -40,6 +43,7 @@ func initCatImages(catDir string) {
 	for _, file := range files {
 		relativePath := filepath.Base(file)
 		catImages = append(catImages, relativePath)
+		catRatings[relativePath] = 1200
 	}
 }
 
@@ -63,15 +67,12 @@ func showCats(w http.ResponseWriter, r *http.Request) {
 
 	var sortedRatings []CatRating
 	for cat, rating := range catRatings {
-		sortedRatings = append(sortedRatings, CatRating{Image: cat, Votes: rating})
+		sortedRatings = append(sortedRatings, CatRating{Image: cat, Rating: rating})
 	}
 
 	sort.Slice(sortedRatings, func(i, j int) bool {
-		return sortedRatings[i].Votes > sortedRatings[j].Votes
+		return sortedRatings[i].Rating > sortedRatings[j].Rating
 	})
-
-	fmt.Println("Cat Ratings:", catRatings)       // Debugging line
-	fmt.Println("Sorted Ratings:", sortedRatings) // Debugging line
 
 	hawkwing.RenderHTML(w, "home.html", map[string]interface{}{
 		"Cat1":    currentCats[0],
@@ -84,16 +85,38 @@ func vote(w http.ResponseWriter, r *http.Request) {
 	selectedCat := r.FormValue("selectedCat")
 
 	if selectedCat != "" {
-		catRatings[selectedCat]++
+		var winner string
+		var loser string
+
+		if selectedCat == currentCats[0] {
+			winner = currentCats[0]
+			loser = currentCats[1]
+		} else {
+			winner = currentCats[1]
+			loser = currentCats[0]
+		}
+
+		updateRatings(winner, loser)
+
+		exclude := map[string]bool{
+			currentCats[0]: true,
+			currentCats[1]: true,
+		}
+
+		currentCats[0] = randomCat(exclude)
+		currentCats[1] = randomCat(map[string]bool{currentCats[0]: true})
+
+		http.Redirect(w, r, "/", http.StatusFound)
 	}
+}
 
-	exclude := map[string]bool{
-		currentCats[0]: true,
-		currentCats[1]: true,
-	}
+func updateRatings(winner, loser string) {
+	winnerRating := float64(catRatings[winner])
+	loserRating := float64(catRatings[loser])
 
-	currentCats[0] = randomCat(exclude)
-	currentCats[1] = randomCat(map[string]bool{currentCats[0]: true})
+	expectedWinner := 1 / (1 + math.Pow(10, (loserRating-winnerRating)/400))
+	expectedLoser := 1 / (1 + math.Pow(10, (winnerRating-loserRating)/400))
 
-	http.Redirect(w, r, "/", http.StatusFound)
+	catRatings[winner] += int(K * (1 - expectedWinner))
+	catRatings[loser] += int(K * (0 - expectedLoser))
 }

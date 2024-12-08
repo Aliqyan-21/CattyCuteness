@@ -95,6 +95,23 @@ form {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
 }
 
+.footer {
+  background-color: #1e1e2f; /* Dark background to match the theme */
+  color: #f0f0f0; /* Light text color for contrast */
+  padding: 10px; /* Reduced padding for a slimmer look */
+  position: relative; /* Positioning relative to other elements */
+  bottom: 0; /* Align to bottom */
+  max-width: 600px; /* Set a maximum width for the footer */
+  margin: 0 auto; /* Center the footer horizontally */
+  text-align: center; /* Center text */
+  font-size: 0.9rem; /* Slightly smaller font size */
+  border-top: 1px solid #444; /* Subtle top border */
+}
+
+.footer p {
+  margin: 0; /* Remove default margin */
+}
+
 @media (max-width: 600px) {
   h1 {
     font-size: 2rem;

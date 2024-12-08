@@ -28,7 +28,8 @@
       <thead>
         <tr>
           <th>Cat Image</th>
-          <th>Votes</th>
+          <th>Rating</th>
+          <!-- Change from Votes to Rating -->
         </tr>
       </thead>
       <tbody>
@@ -41,7 +42,8 @@
               class="small-cat-image"
             />
           </td>
-          <td>{{.Votes}} votes</td>
+          <td>{{.Rating}}</td>
+          <!-- Change from Votes to Rating -->
         </tr>
         {{end}} {{else}}
         <tr>
@@ -50,5 +52,9 @@
         {{end}}
       </tbody>
     </table>
+
+    <footer class="footer">
+      <p>Web app made with ❤️ using the Hawkwing framework by Aliqyan.</p>
+    </footer>
   </body>
 </html>
