@@ -2,13 +2,17 @@
 
 Welcome to **Catty Cuteness Voting**, a fun web application where users can cast their votes for the cutest cats! This project serves as both a fun platform for cat enthusiasts and a testing ground for the **Hawkwing** framework, which I developed to simplify web programming in Go.
 
-Inspired by the webapp depicted in the movie **The Social Network**, this app allows users to compare two adorable feline contenders at a time, fostering a sense of rivalry and excitement. Each vote influences the dynamic rating system, which ranks our furry friends using an Elo-inspired algorithm. Just like in competitive chess, where players' skills are measured and adjusted based on their performance, _our cats’ ratings evolve with each interaction, reflecting their popularity among voters_.
-
 <p align="center">
-  <img src="assets/cattycuteness1.gif" alt="Voting Demo" width="600">
+  <img src="assets/cattycuteness.gif" alt="Voting Demo" width="600">
 </p>
 <p align="center">
   <em>CattyCuteness in action!</em>
+</p>
+
+Inspired by the webapp depicted in the movie **The Social Network**, this app allows users to compare two adorable feline contenders at a time, fostering a sense of rivalry and excitement. Each vote influences the dynamic rating system, which ranks our furry friends using an Elo-inspired algorithm. Just like in competitive chess, where players' skills are measured and adjusted based on their performance, _our cats’ ratings evolve with each interaction, reflecting their popularity among voters_.
+
+<p align="center">
+  <img src="assets/thesocialnetwork.webp" alt="Homepage Screenshot" width="600">
 </p>
 
 ## Features
