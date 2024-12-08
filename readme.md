@@ -4,6 +4,13 @@ Welcome to **Catty Cuteness Voting**, a fun web application where users can cast
 
 Inspired by the webapp depicted in the movie **The Social Network**, this app allows users to compare two adorable feline contenders at a time, fostering a sense of rivalry and excitement. Each vote influences the dynamic rating system, which ranks our furry friends using an Elo-inspired algorithm. Just like in competitive chess, where players' skills are measured and adjusted based on their performance, _our cats’ ratings evolve with each interaction, reflecting their popularity among voters_.
 
+<p align="center">
+  <img src="assets/cattycuteness1.gif" alt="Voting Demo" width="600">
+</p>
+<p align="center">
+  <em>CattyCuteness in action!</em>
+</p>
+
 ## Features
 
 - **Vote for Cats**: Users can vote for their favorite cats displayed on the homepage.
