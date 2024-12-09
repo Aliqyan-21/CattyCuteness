@@ -1,6 +1,6 @@
 # Catty Cuteness Voting
 
-Welcome to **Catty Cuteness Voting**, a fun web application where users can cast their votes for the cutest cats! This project serves as both a fun platform for cat enthusiasts and a testing ground for the **Hawkwing** framework, which I developed to simplify web programming in Go.
+Welcome to **Catty Cuteness Voting**, a fun web application where users can cast their votes for the cutest cats! This project serves as both a fun platform for cat enthusiasts and a testing ground for the [**Hawkwing**](https://github.com/aliqyan-21/hawkwing) framework, which I developed to simplify web programming in Go.
 
 <p align="center">
   <img src="assets/cattycuteness.gif" alt="Voting Demo" width="600">
